@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript function Draw</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container" style="margin-top: 10px">
+    <div class="functionInput">
+        <label for="functionDefinition">Function Definition</label>
+        <input type="text" id="functionDefinition" onkeyup="plt.inspect(this)">
+        <button class="btn btn-primary" id="plotbtn" onclick="plt.plot()" disabled>Plot</button>
+    </div>
+    <div id="canvasHolder" style="margin-top: 20px">
+        <canvas id="myCanvas" width="800" height="800" style="border:1px solid #888888;">
+        </canvas>
+
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
