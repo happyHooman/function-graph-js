@@ -11,6 +11,21 @@ class Plotter {
         this.drawAxes();
     }
 
+    escape(fn) {
+        const mapObj = {
+            sin: "Math.sin",
+            cos: "Math.cos",
+            pi: "Math.PI",
+            sqrt: "Math.sqrt"
+        };
+
+        const re = new RegExp(Object.keys(mapObj).join("|"), "gi");
+        fn = fn.replace(re, function (matched) {
+            return mapObj[matched];
+        });
+        return fn
+    }
+
     drawAxes() {
         const midX = this.canvas.width / 2;
         const midY = this.canvas.height / 2;
@@ -48,6 +63,12 @@ class Plotter {
         for (let i = 0; i < 7; i++) {
             this.oxGrades(-i - 1)
         }
+        
+        // ctx.stroke();
+        //
+        // ctx.fillStyle = '#333333';
+        // ctx.moveTo(midX + this.step, 0);
+        // ctx.lineTo(midX + this.step, height);
 
         ctx.stroke();
     }
@@ -78,10 +99,9 @@ class Plotter {
     point(x, y, size) {
         const midX = this.canvas.width / 2;
         const midY = this.canvas.height / 2;
-        const ctx = this.ctx;
         const step = this.step;
 
-        ctx.fillRect(x, y, size, size);
+        this.ctx.fillRect(x * step + midX - size / 2, this.canvas.height - midY - y * step - size / 2, size, size);
     }
 
     getFunctionDefinition() {
@@ -90,20 +110,20 @@ class Plotter {
 
     plot() {
         const midX = this.canvas.width / 2;
-        const midY = this.canvas.height / 2;
-        const ctx = this.ctx;
-        const step = this.step;
 
-
-        const fd = this.getFunctionDefinition();
-        ctx.fillStyle = '#00FF00';
+        const fd = this.escape(this.getFunctionDefinition());
+        this.ctx.fillStyle = '#00FF00';
 
         for (let i = 0; i < this.canvas.width; i++) {
-            const x = (i - midX) / step;
+            const x = (i - midX) / this.step;
             const y = eval(fd.replace('x', x));
-            console.log(x, y);
-            this.point(x, y, 3)
+            this.point(x, y, 2)
         }
+    }
+
+    clear(){
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawAxes();
     }
 
     inspect(el) {

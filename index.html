@@ -12,6 +12,7 @@
         <label for="functionDefinition">Function Definition</label>
         <input type="text" id="functionDefinition" onkeyup="plt.inspect(this)">
         <button class="btn btn-primary" id="plotbtn" onclick="plt.plot()" disabled>Plot</button>
+        <button class="btn btn-primary" id="clearbtn" onclick="plt.clear()">Clear</button>
     </div>
     <div id="canvasHolder" style="margin-top: 20px">
         <canvas id="myCanvas" width="800" height="800" style="border:1px solid #888888;">
